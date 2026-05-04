@@ -1,0 +1,2238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZMW Business - Where Creativity Meets Code</title>
+    <style>
+        /* ===== FONTS ===== */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cairo:wght@300;400;500;600;700;800&display=swap');
+        
+        /* ===== CSS VARIABLES ===== */
+        :root {
+            --primary-blue: #2563eb;
+            --primary-dark: #1e40af;
+            --primary-light: #60a5fa;
+            --primary-glow: rgba(37, 99, 235, 0.5);
+            --milk-white: #f8fafc;
+            --light-gray: #f1f5f9;
+            --dark-text: #0f172a;
+            --gray-text: #475569;
+            --light-text: #94a3b8;
+            --shadow-sm: 0 10px 30px -10px rgba(0,0,0,0.1);
+            --shadow-md: 0 20px 40px -15px rgba(37,99,235,0.2);
+            --shadow-lg: 0 30px 60px -15px rgba(37,99,235,0.3);
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(37, 99, 235, 0.15);
+        }
+
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+
+        /* Arabic font */
+        html[lang="ar"] body {
+            font-family: 'Cairo', sans-serif;
+        }
+
+        /* ===== COSMIC ANIMATED BACKGROUND ===== */
+        .cosmic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: linear-gradient(125deg, 
+                var(--milk-white) 0%, 
+                #eef2ff 15%, 
+                #dbeafe 30%, 
+                #e0e7ff 45%, 
+                #c7d2fe 60%, 
+                #e0e7ff 75%, 
+                #eef2ff 90%, 
+                var(--milk-white) 100%);
+            background-size: 400% 400%;
+            animation: cosmicDrift 25s ease infinite;
+        }
+
+        .cosmic-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(37, 99, 235, 0.08) 0%, transparent 25%),
+                radial-gradient(circle at 90% 30%, rgba(37, 99, 235, 0.06) 0%, transparent 30%),
+                radial-gradient(circle at 40% 80%, rgba(37, 99, 235, 0.1) 0%, transparent 35%),
+                radial-gradient(circle at 70% 60%, rgba(37, 99, 235, 0.07) 0%, transparent 28%);
+            animation: pulseCosmic 18s ease infinite;
+        }
+
+        .cosmic-bg::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 15% 25%, var(--primary-blue) 1px, transparent 1px),
+                radial-gradient(circle at 85% 45%, var(--primary-blue) 1px, transparent 1px),
+                radial-gradient(circle at 25% 75%, var(--primary-blue) 1px, transparent 1px),
+                radial-gradient(circle at 75% 15%, var(--primary-blue) 1px, transparent 1px),
+                radial-gradient(circle at 45% 85%, var(--primary-blue) 1px, transparent 1px),
+                radial-gradient(circle at 55% 35%, var(--primary-blue) 1px, transparent 1px),
+                radial-gradient(circle at 95% 65%, var(--primary-blue) 1px, transparent 1px),
+                radial-gradient(circle at 5% 95%, var(--primary-blue) 1px, transparent 1px);
+            background-size: 150px 150px;
+            opacity: 0.12;
+            animation: starField 35s linear infinite;
+        }
+
+        @keyframes cosmicDrift {
+            0% { background-position: 0% 0%; }
+            25% { background-position: 50% 25%; }
+            50% { background-position: 100% 50%; }
+            75% { background-position: 50% 75%; }
+            100% { background-position: 0% 100%; }
+        }
+
+        @keyframes pulseCosmic {
+            0% { opacity: 0.3; transform: scale(1); }
+            33% { opacity: 0.5; transform: scale(1.05); }
+            66% { opacity: 0.4; transform: scale(0.98); }
+            100% { opacity: 0.3; transform: scale(1); }
+        }
+
+        @keyframes starField {
+            0% { background-position: 0 0; }
+            100% { background-position: 300px 300px; }
+        }
+
+        /* ===== FLOATING PARTICLES ===== */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: var(--primary-blue);
+            border-radius: 50%;
+            opacity: 0.15;
+            filter: blur(3px);
+            animation: floatParticle var(--duration) ease-in-out infinite;
+        }
+
+        @keyframes floatParticle {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(20px, -30px) scale(1.2); }
+            50% { transform: translate(-15px, 20px) scale(0.9); }
+            75% { transform: translate(-25px, -15px) scale(1.1); }
+        }
+
+        /* ===== GLASS MORPHISM ===== */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* ===== CUSTOM CURSOR ===== */
+        .custom-cursor {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--primary-blue);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.2s ease, background-color 0.3s, border-color 0.3s, width 0.2s, height 0.2s, box-shadow 0.3s;
+            transform: translate(-50%, -50%);
+            background: rgba(37, 99, 235, 0.05);
+            box-shadow: 0 0 30px var(--primary-glow);
+            mix-blend-mode: normal;
+        }
+
+        .custom-cursor.hover {
+            width: 70px;
+            height: 70px;
+            background: rgba(37, 99, 235, 0.15);
+            border-color: var(--primary-dark);
+            box-shadow: 0 0 50px var(--primary-glow);
+        }
+
+        .custom-cursor.click {
+            width: 30px;
+            height: 30px;
+            background: var(--primary-blue);
+            border-color: white;
+            box-shadow: 0 0 40px var(--primary-blue);
+        }
+
+        /* ===== CONTAINER ===== */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== MILK-COLORED NAVBAR ===== */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            margin: 20px 0 30px;
+            background: var(--milk-white);
+            border-radius: 100px;
+            box-shadow: 0 5px 20px rgba(37, 99, 235, 0.08);
+            border: 1px solid rgba(37, 99, 235, 0.1);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 20px;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(248, 250, 252, 0.95);
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.15);
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--primary-blue);
+            text-decoration: none;
+            position: relative;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo span {
+            color: var(--dark-text);
+            font-weight: 300;
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+
+        .logo-badge {
+            background: var(--primary-blue);
+            color: white;
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 20px;
+            margin-left: 10px;
+            font-weight: 500;
+            animation: badgePulse 2s infinite;
+        }
+
+        @keyframes badgePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            color: var(--dark-text);
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
+            padding: 8px 0;
+            transition: color 0.3s;
+            font-size: 16px;
+            letter-spacing: 0.3px;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-blue);
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--primary-light));
+            transition: width 0.3s ease;
+            border-radius: 3px;
+        }
+
+        html[dir="ltr"] .nav-links a::before {
+            left: 0;
+        }
+
+        html[dir="rtl"] .nav-links a::before {
+            right: 0;
+        }
+
+        .nav-links a:hover::before {
+            width: 100%;
+        }
+
+        /* Premium language switch */
+        .language-switch {
+            display: flex;
+            gap: 5px;
+            background: white;
+            padding: 5px;
+            border-radius: 60px;
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.1);
+            border: 1px solid rgba(37, 99, 235, 0.2);
+        }
+
+        .lang-btn {
+            padding: 10px 22px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 14px;
+            background: transparent;
+            color: var(--gray-text);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lang-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(37, 99, 235, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.4s, height 0.4s;
+            z-index: -1;
+        }
+
+        .lang-btn:hover::before {
+            width: 100px;
+            height: 100px;
+        }
+
+        .lang-btn.active {
+            background: var(--primary-blue);
+            color: white;
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 60px;
+            padding: 40px 0 80px;
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .hero-title {
+            font-size: 70px;
+            font-weight: 800;
+            margin-bottom: 25px;
+            line-height: 1.1;
+            letter-spacing: -2px;
+            animation: titleGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { text-shadow: 0 0 20px rgba(37, 99, 235, 0.1); }
+            50% { text-shadow: 0 0 40px rgba(37, 99, 235, 0.2); }
+        }
+
+        html[lang="ar"] .hero-title {
+            font-size: 65px;
+            letter-spacing: 0;
+        }
+
+        .hero-title .highlight {
+            color: var(--primary-blue);
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero-title .highlight::before {
+            content: '';
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background: rgba(37, 99, 235, 0.15);
+            z-index: -1;
+            border-radius: 10px;
+            animation: highlightPulse 2s infinite;
+        }
+
+        @keyframes highlightPulse {
+            0%, 100% { opacity: 0.5; height: 20px; }
+            50% { opacity: 0.8; height: 25px; }
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            color: var(--gray-text);
+            margin-bottom: 40px;
+            max-width: 550px;
+            line-height: 1.7;
+            animation: subtitleFade 3s infinite;
+        }
+
+        @keyframes subtitleFade {
+            0%, 100% { opacity: 0.9; transform: translateY(0); }
+            50% { opacity: 1; transform: translateY(-3px); }
+        }
+
+        /* Premium typewriter */
+        .typewriter-wrapper {
+            margin: 40px 0;
+            position: relative;
+        }
+
+        .typewriter-container {
+            font-size: 32px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(15px);
+            padding: 25px 35px;
+            border-radius: 80px;
+            border-left: 6px solid var(--primary-blue);
+            border-right: 6px solid transparent;
+            box-shadow: var(--shadow-md);
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            animation: typewriterGlow 2s infinite;
+        }
+
+        @keyframes typewriterGlow {
+            0%, 100% { box-shadow: 0 10px 30px -10px rgba(37,99,235,0.3); }
+            50% { box-shadow: 0 20px 50px -5px rgba(37,99,235,0.5); }
+        }
+
+        html[lang="ar"] .typewriter-container {
+            border-right: 6px solid var(--primary-blue);
+            border-left: 6px solid transparent;
+        }
+
+        .typewriter-prefix {
+            font-weight: 400;
+            color: var(--gray-text);
+        }
+
+        #typewriter-text {
+            color: var(--primary-blue);
+            font-weight: 700;
+            position: relative;
+            min-width: 200px;
+            display: inline-block;
+        }
+
+        .typewriter-cursor {
+            display: inline-block;
+            width: 4px;
+            height: 40px;
+            background: var(--primary-blue);
+            margin-left: 8px;
+            margin-right: 8px;
+            animation: blink 0.8s infinite;
+            vertical-align: middle;
+            border-radius: 2px;
+            box-shadow: 0 0 20px var(--primary-blue);
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* Premium CTA Button */
+        .cta-group {
+            display: flex;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 18px 45px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-dark));
+            color: white;
+            text-decoration: none;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 18px;
+            transition: all 0.4s ease;
+            border: none;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            z-index: 1;
+            animation: buttonPulse 2s infinite;
+        }
+
+        @keyframes buttonPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.7s;
+            z-index: -1;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 30px 40px rgba(37, 99, 235, 0.4);
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button-outline {
+            background: transparent;
+            color: var(--primary-blue);
+            border: 2px solid var(--primary-blue);
+            box-shadow: none;
+            animation: none;
+        }
+
+        .cta-button-outline:hover {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        /* Hero image with 3D effect */
+        .hero-image {
+            flex: 1;
+            position: relative;
+        }
+
+        .floating-elements {
+            position: relative;
+            width: 100%;
+            height: 500px;
+        }
+
+        .floating-shape-1 {
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.2), rgba(255, 255, 255, 0.5));
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            animation: float3d 8s ease infinite;
+            box-shadow: var(--shadow-lg);
+            position: absolute;
+            top: 20px;
+            right: 0;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        .floating-shape-2 {
+            width: 250px;
+            height: 250px;
+            background: rgba(37, 99, 235, 0.15);
+            border-radius: 60% 40% 40% 60% / 60% 40% 60% 40%;
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            animation: float3d 12s ease infinite reverse;
+            border: 1px solid rgba(37, 99, 235, 0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        .floating-shape-3 {
+            width: 150px;
+            height: 150px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 30%;
+            animation: float3d 10s ease infinite 1s;
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            backdrop-filter: blur(5px);
+        }
+
+        .floating-shape-4 {
+            width: 80px;
+            height: 80px;
+            background: var(--primary-blue);
+            border-radius: 30% 70% 50% 50% / 30% 40% 60% 70%;
+            position: absolute;
+            bottom: 40%;
+            right: 20%;
+            animation: float3d 6s ease infinite 0.5s;
+            opacity: 0.3;
+            filter: blur(5px);
+        }
+
+        @keyframes float3d {
+            0% { transform: translateY(0px) rotate(0deg) scale(1); }
+            25% { transform: translateY(-25px) rotate(5deg) scale(1.03); }
+            50% { transform: translateY(15px) rotate(-5deg) scale(0.98); }
+            75% { transform: translateY(-10px) rotate(3deg) scale(1.02); }
+            100% { transform: translateY(0px) rotate(0deg) scale(1); }
+        }
+
+        /* ===== SERVICES SECTION ===== */
+        .services {
+            padding: 120px 0;
+        }
+
+        .section-header {
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+            letter-spacing: -1px;
+        }
+
+        .section-title-accent {
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--primary-light));
+            border-radius: 5px;
+            margin-top: 10px;
+            animation: accentSlide 2s infinite;
+        }
+
+        @keyframes accentSlide {
+            0%, 100% { width: 100px; opacity: 1; }
+            50% { width: 150px; opacity: 0.7; }
+        }
+
+        .section-subtitle {
+            color: var(--gray-text);
+            font-size: 18px;
+            max-width: 600px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            padding: 50px 30px;
+            border-radius: 30px;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(37, 99, 235, 0.15);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), transparent);
+            transform: translateY(100%);
+            transition: transform 0.6s ease;
+            z-index: -1;
+        }
+
+        .service-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.05) 0%, transparent 70%);
+            animation: cardGlow 8s infinite;
+            z-index: -2;
+        }
+
+        @keyframes cardGlow {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(-10%, -10%) scale(1.1); }
+            66% { transform: translate(10%, 10%) scale(0.9); }
+        }
+
+        .service-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: var(--shadow-md);
+            border-color: rgba(37, 99, 235, 0.3);
+        }
+
+        .service-card:hover::before {
+            transform: translateY(0);
+        }
+
+        .service-icon {
+            font-size: 54px;
+            margin-bottom: 25px;
+            color: var(--primary-blue);
+            background: rgba(37, 99, 235, 0.1);
+            width: 90px;
+            height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            transition: all 0.3s;
+            animation: iconFloat 3s infinite;
+        }
+
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-5px) rotate(5deg); }
+        }
+
+        .service-card:hover .service-icon {
+            background: var(--primary-blue);
+            color: white;
+            transform: scale(1.1) rotate(10deg);
+            border-radius: 30% 70% 50% 50% / 30% 40% 60% 70%;
+        }
+
+        .service-card h3 {
+            font-size: 26px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .service-card p {
+            color: var(--gray-text);
+            line-height: 1.7;
+        }
+
+        .service-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: var(--primary-blue);
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+
+        .service-link:hover {
+            transform: translateX(5px);
+        }
+
+        /* ===== PORTFOLIO SECTION ===== */
+        .portfolio {
+            padding: 100px 0;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(5px);
+            border-radius: 60px;
+            margin: 40px 0;
+        }
+
+        .portfolio-filters {
+            display: flex;
+            gap: 15px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 14px 32px;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            border-radius: 60px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--gray-text);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .filter-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(37, 99, 235, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.4s, height 0.4s;
+            z-index: -1;
+        }
+
+        .filter-btn:hover::before {
+            width: 150px;
+            height: 150px;
+        }
+
+        .filter-btn.active {
+            background: var(--primary-blue);
+            color: white;
+            border-color: var(--primary-blue);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .portfolio-item {
+            position: relative;
+            border-radius: 30px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s;
+            animation: portfolioItemPulse 3s infinite;
+        }
+
+        @keyframes portfolioItemPulse {
+            0%, 100% { box-shadow: 0 15px 30px -10px rgba(37,99,235,0.2); }
+            50% { box-shadow: 0 25px 50px -10px rgba(37,99,235,0.4); }
+        }
+
+        .portfolio-item:hover {
+            box-shadow: var(--shadow-lg);
+            transform: scale(1.03);
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.7s ease;
+            filter: grayscale(80%) brightness(1.1);
+        }
+
+        .portfolio-item:hover img {
+            transform: scale(1.15);
+            filter: grayscale(0%) brightness(1);
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.97), rgba(30, 64, 175, 0.98));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
+        .portfolio-overlay h3 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            transform: translateY(20px);
+            transition: transform 0.4s ease 0.1s;
+        }
+
+        .portfolio-overlay p {
+            transform: translateY(20px);
+            transition: transform 0.4s ease 0.2s;
+            font-size: 16px;
+            opacity: 0.9;
+            max-width: 250px;
+        }
+
+        .portfolio-overlay .portfolio-tag {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-size: 14px;
+            font-weight: 600;
+            backdrop-filter: blur(5px);
+            animation: tagFloat 2s infinite;
+        }
+
+        @keyframes tagFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+
+        .portfolio-item:hover .portfolio-overlay h3,
+        .portfolio-item:hover .portfolio-overlay p {
+            transform: translateY(0);
+        }
+
+        /* ===== STATS SECTION ===== */
+        .stats {
+            padding: 80px 0;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(15px);
+            border-radius: 60px;
+            margin: 60px 0;
+            border: 1px solid rgba(37, 99, 235, 0.2);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            text-align: center;
+        }
+
+        .stat-item {
+            position: relative;
+            padding: 20px;
+            animation: statItemFloat 3s infinite;
+        }
+
+        @keyframes statItemFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .stat-number {
+            font-size: 64px;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+            animation: numberPop 2s infinite;
+        }
+
+        @keyframes numberPop {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .stat-label {
+            font-size: 18px;
+            color: var(--gray-text);
+            font-weight: 600;
+        }
+
+        .stat-icon {
+            font-size: 30px;
+            margin-bottom: 15px;
+            color: var(--primary-blue);
+            opacity: 0.5;
+            animation: iconRotate 4s infinite;
+        }
+
+        @keyframes iconRotate {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(10deg); }
+            75% { transform: rotate(-10deg); }
+        }
+
+        /* ===== TESTIMONIALS SECTION ===== */
+        .testimonials {
+            padding: 100px 0;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            padding: 40px;
+            border-radius: 30px;
+            border: 1px solid rgba(37, 99, 235, 0.15);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 100px;
+            color: var(--primary-blue);
+            opacity: 0.1;
+            font-family: serif;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: var(--shadow-md);
+        }
+
+        .testimonial-text {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--dark-text);
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary-blue);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 20px;
+            animation: avatarPulse 2s infinite;
+        }
+
+        @keyframes avatarPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(37,99,235,0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(37,99,235,0); }
+        }
+
+        .author-info h4 {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .author-info p {
+            font-size: 14px;
+            color: var(--light-text);
+        }
+
+        /* ===== CONTACT SECTION ===== */
+        .contact {
+            padding: 120px 0;
+        }
+
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            margin-top: 50px;
+        }
+
+        .contact-info {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(15px);
+            padding: 50px;
+            border-radius: 40px;
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            animation: contactInfoFloat 4s infinite;
+        }
+
+        @keyframes contactInfoFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .contact-info h3 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: var(--primary-blue);
+        }
+
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(37, 99, 235, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-blue);
+            font-size: 20px;
+            transition: all 0.3s;
+            animation: contactIconPulse 2s infinite;
+        }
+
+        @keyframes contactIconPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .contact-detail:hover .contact-icon {
+            background: var(--primary-blue);
+            color: white;
+            transform: rotate(360deg);
+        }
+
+        .contact-text {
+            font-size: 18px;
+            color: var(--dark-text);
+        }
+
+        .contact-form {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(15px);
+            padding: 50px;
+            border-radius: 40px;
+            border: 1px solid rgba(37, 99, 235, 0.2);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 18px 25px;
+            border: 2px solid rgba(37, 99, 235, 0.1);
+            border-radius: 20px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+            background: white;
+            transform: scale(1.02);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-dark));
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: white;
+            padding: 80px 0 30px;
+            margin-top: 80px;
+            border-radius: 60px 60px 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.1) 0%, transparent 70%);
+            animation: footerGlow 15s infinite;
+        }
+
+        @keyframes footerGlow {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(-5%, -5%) scale(1.05); }
+            66% { transform: translate(5%, 5%) scale(0.95); }
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 50px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer h3 {
+            color: var(--primary-light);
+            margin-bottom: 25px;
+            font-size: 22px;
+        }
+
+        .footer p {
+            color: #cbd5e1;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s, transform 0.3s;
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-light);
+            transform: translateX(5px);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .social-icon:hover {
+            background: var(--primary-blue);
+            transform: translateY(-8px) rotate(360deg);
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
+        }
+
+        .newsletter-form {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 30px 0 0 30px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .newsletter-btn {
+            padding: 12px 20px;
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            border-radius: 0 30px 30px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .newsletter-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 50px;
+            margin-top: 50px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+        }
+
+        /* ===== SCROLL REVEAL ===== */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .fade-up.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== RTL SPECIFIC STYLES ===== */
+        html[lang="ar"] .service-link:hover {
+            transform: translateX(-5px);
+        }
+
+        html[lang="ar"] .footer-links a:hover {
+            transform: translateX(-5px);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1200px) {
+            .hero-title {
+                font-size: 55px;
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                min-height: auto;
+            }
+            
+            .hero-title {
+                font-size: 50px;
+            }
+            
+            .hero-subtitle {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .typewriter-container {
+                font-size: 28px;
+            }
+            
+            .cta-group {
+                justify-content: center;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .custom-cursor {
+                display: none;
+            }
+            
+            .floating-shape-1 {
+                width: 300px;
+                height: 300px;
+            }
+            
+            .contact-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+            
+            .hero-title {
+                font-size: 42px;
+            }
+            
+            .section-title {
+                font-size: 36px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+            }
+            
+            .stat-number {
+                font-size: 48px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .navbar {
+                padding: 15px 20px;
+            }
+            
+            .typewriter-container {
+                font-size: 22px;
+                padding: 20px 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 36px;
+            }
+            
+            .cta-group {
+                flex-direction: column;
+            }
+            
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===== LOADING ANIMATION ===== */
+        .loading-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--primary-light), white, var(--primary-blue));
+            background-size: 200% 100%;
+            z-index: 10000;
+            animation: loading 1.5s ease, loadingShimmer 2s infinite;
+        }
+
+        @keyframes loading {
+            0% { width: 0; }
+            50% { width: 70%; }
+            100% { width: 100%; }
+        }
+
+        @keyframes loadingShimmer {
+            0% { background-position: 0% 0; }
+            100% { background-position: 200% 0; }
+        }
+    </style>
+</head>
+<body lang="en">
+    <!-- Loading Bar -->
+    <div class="loading-bar"></div>
+
+    <!-- Cosmic Animated Background -->
+    <div class="cosmic-bg"></div>
+
+    <!-- Floating Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Custom Cursor -->
+    <div class="custom-cursor" id="customCursor"></div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Navbar -->
+        <nav class="navbar" id="navbar">
+            <a href="#" class="logo">
+                ZMW <span>Business</span>
+                <span class="logo-badge">EST. 2020</span>
+            </a>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#services">Services</a>
+                <a href="#portfolio">Portfolio</a>
+                <a href="#testimonials">Testimonials</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="language-switch">
+                <button class="lang-btn active" onclick="changeLanguage('en')">EN</button>
+                <button class="lang-btn" onclick="changeLanguage('ar')">عربي</button>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-content fade-up">
+                <h1 class="hero-title">
+                    Create <span class="highlight">Digital</span><br>
+                    Excellence With Us
+                </h1>
+                <p class="hero-subtitle">We blend creativity with cutting-edge technology to deliver outstanding media and programming solutions that elevate your brand to the next level.</p>
+                
+                <div class="typewriter-wrapper">
+                    <div class="typewriter-container glass">
+                        <span class="typewriter-prefix">We are</span>
+                        <span id="typewriter-text"></span>
+                        <span class="typewriter-cursor"></span>
+                    </div>
+                </div>
+                
+                <div class="cta-group">
+                    <a href="#portfolio" class="cta-button">Explore Our Work</a>
+                    <a href="#contact" class="cta-button cta-button-outline">Let's Talk</a>
+                </div>
+            </div>
+            
+            <div class="hero-image fade-up">
+                <div class="floating-elements">
+                    <div class="floating-shape-1"></div>
+                    <div class="floating-shape-2"></div>
+                    <div class="floating-shape-3"></div>
+                    <div class="floating-shape-4"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="services">
+            <div class="section-header fade-up">
+                <h2 class="section-title">Our Services</h2>
+                <div class="section-title-accent"></div>
+                <p class="section-subtitle">Comprehensive solutions tailored to your business needs, delivered with precision and creativity.</p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card fade-up">
+                    <div class="service-icon">🎬</div>
+                    <h3>Production</h3>
+                    <p>High-quality video production, from concept to final cut, using state-of-the-art equipment and techniques.</p>
+                    <a href="#" class="service-link">Learn more →</a>
+                </div>
+                <div class="service-card fade-up">
+                    <div class="service-icon">💻</div>
+                    <h3>Development</h3>
+                    <p>Custom web and mobile applications built with modern technologies and best practices for optimal performance.</p>
+                    <a href="#" class="service-link">Learn more →</a>
+                </div>
+                <div class="service-card fade-up">
+                    <div class="service-icon">✂️</div>
+                    <h3>Post Production</h3>
+                    <p>Professional editing, color grading, and visual effects that bring your vision to life with cinematic quality.</p>
+                    <a href="#" class="service-link">Learn more →</a>
+                </div>
+                <div class="service-card fade-up">
+                    <div class="service-icon">📸</div>
+                    <h3>Photography</h3>
+                    <p>Commercial and creative photography that captures your brand's essence and tells your unique story.</p>
+                    <a href="#" class="service-link">Learn more →</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio Section -->
+        <section id="portfolio" class="portfolio">
+            <div class="section-header fade-up">
+                <h2 class="section-title">Our Portfolio</h2>
+                <div class="section-title-accent"></div>
+                <p class="section-subtitle">Some of our favorite projects that showcase our expertise and creativity.</p>
+            </div>
+            
+            <div class="portfolio-filters fade-up">
+                <button class="filter-btn active" onclick="filterPortfolio('all')">All</button>
+                <button class="filter-btn" onclick="filterPortfolio('production')">Production</button>
+                <button class="filter-btn" onclick="filterPortfolio('coding')">Development</button>
+                <button class="filter-btn" onclick="filterPortfolio('montage')">Post Production</button>
+            </div>
+            
+            <div class="portfolio-grid" id="portfolioGrid">
+                <div class="portfolio-item fade-up" data-category="production">
+                    <img src="https://picsum.photos/600/400?random=1" alt="Commercial Project">
+                    <div class="portfolio-overlay">
+                        <span class="portfolio-tag">Production</span>
+                        <h3>Commercial Ad</h3>
+                        <p>Video production for leading brand</p>
+                    </div>
+                </div>
+                <div class="portfolio-item fade-up" data-category="coding">
+                    <img src="https://picsum.photos/600/400?random=2" alt="Web App">
+                    <div class="portfolio-overlay">
+                        <span class="portfolio-tag">Development</span>
+                        <h3>E-commerce Platform</h3>
+                        <p>Full-stack web application</p>
+                    </div>
+                </div>
+                <div class="portfolio-item fade-up" data-category="montage">
+                    <img src="https://picsum.photos/600/400?random=3" alt="Editing Work">
+                    <div class="portfolio-overlay">
+                        <span class="portfolio-tag">Post Production</span>
+                        <h3>Short Film Edit</h3>
+                        <p>Professional editing & VFX</p>
+                    </div>
+                </div>
+                <div class="portfolio-item fade-up" data-category="production">
+                    <img src="https://picsum.photos/600/400?random=4" alt="Photography">
+                    <div class="portfolio-overlay">
+                        <span class="portfolio-tag">Production</span>
+                        <h3>Product Photography</h3>
+                        <p>Commercial photo session</p>
+                    </div>
+                </div>
+                <div class="portfolio-item fade-up" data-category="coding">
+                    <img src="https://picsum.photos/600/400?random=5" alt="Mobile App">
+                    <div class="portfolio-overlay">
+                        <span class="portfolio-tag">Development</span>
+                        <h3>Mobile Application</h3>
+                        <p>iOS & Android app development</p>
+                    </div>
+                </div>
+                <div class="portfolio-item fade-up" data-category="montage">
+                    <img src="https://picsum.photos/600/400?random=6" alt="Color Grading">
+                    <div class="portfolio-overlay">
+                        <span class="portfolio-tag">Post Production</span>
+                        <h3>Color Grading</h3>
+                        <p>Professional color correction</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats fade-up">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-number" data-target="250">0</div>
+                    <div class="stat-label">Projects Completed</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">😊</div>
+                    <div class="stat-number" data-target="80">0</div>
+                    <div class="stat-label">Happy Clients</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">⏱️</div>
+                    <div class="stat-number" data-target="8">0</div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-number" data-target="15">0</div>
+                    <div class="stat-label">Expert Team</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="testimonials">
+            <div class="section-header fade-up">
+                <h2 class="section-title">Client Testimonials</h2>
+                <div class="section-title-accent"></div>
+                <p class="section-subtitle">What our clients say about working with us.</p>
+            </div>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card fade-up">
+                    <p class="testimonial-text">"ZMW Business transformed our vision into reality. Their team's creativity and technical expertise exceeded our expectations."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">JD</div>
+                        <div class="author-info">
+                            <h4>John Doe</h4>
+                            <p>CEO, TechStart</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card fade-up">
+                    <p class="testimonial-text">"The quality of their work is outstanding. From video production to web development, they deliver excellence every time."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">JS</div>
+                        <div class="author-info">
+                            <h4>Jane Smith</h4>
+                            <p>Marketing Director</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card fade-up">
+                    <p class="testimonial-text">"Professional, creative, and reliable. ZMW Business is our go-to partner for all our media and programming needs."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MW</div>
+                        <div class="author-info">
+                            <h4>Mike Wilson</h4>
+                            <p>Creative Director</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact">
+            <div class="section-header fade-up">
+                <h2 class="section-title">Get In Touch</h2>
+                <div class="section-title-accent"></div>
+                <p class="section-subtitle">Let's discuss your next project and create something amazing together.</p>
+            </div>
+            
+            <div class="contact-wrapper">
+                <div class="contact-info fade-up">
+                    <h3>Let's Connect</h3>
+                    <div class="contact-detail">
+                        <div class="contact-icon">📧</div>
+                        <div class="contact-text">info@zmwbusiness.com</div>
+                    </div>
+                    <div class="contact-detail">
+                        <div class="contact-icon">📞</div>
+                        <div class="contact-text">+1 234 567 890</div>
+                    </div>
+                    <div class="contact-detail">
+                        <div class="contact-icon">📍</div>
+                        <div class="contact-text">123 Business Ave, New York, NY 10001</div>
+                    </div>
+                    <div class="social-icons" style="margin-top: 40px;">
+                        <a href="#" class="social-icon">fb</a>
+                        <a href="#" class="social-icon">ig</a>
+                        <a href="#" class="social-icon">ln</a>
+                        <a href="#" class="social-icon">tw</a>
+                    </div>
+                </div>
+                
+                <form class="contact-form fade-up" id="contactForm">
+                    <div class="form-group">
+                        <input type="text" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Email Address" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="Subject">
+                    </div>
+                    <div class="form-group">
+                        <textarea rows="5" placeholder="Your Message" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <h3>ZMW Business</h3>
+                    <p>Creating digital excellence through innovative media solutions and cutting-edge technology. We turn ideas into impactful digital experiences.</p>
+                    <div class="newsletter-form">
+                        <input type="email" class="newsletter-input" placeholder="Your email">
+                        <button class="newsletter-btn">Subscribe</button>
+                    </div>
+                </div>
+                <div>
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#portfolio">Portfolio</a></li>
+                        <li><a href="#testimonials">Testimonials</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Production</a></li>
+                        <li><a href="#">Development</a></li>
+                        <li><a href="#">Post Production</a></li>
+                        <li><a href="#">Photography</a></li>
+                        <li><a href="#">Consulting</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Contact Info</h3>
+                    <p>info@zmwbusiness.com<br>+1 234 567 890<br>123 Business Ave, New York, NY 10001</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2026 ZMW Business. All rights reserved. | Privacy Policy | Terms of Service</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ===== LANGUAGE DATA =====
+        const translations = {
+            en: {
+                nav: ['Home', 'Services', 'Portfolio', 'Testimonials', 'Contact'],
+                logo: { prefix: 'ZMW', suffix: 'Business' },
+                hero: {
+                    title: 'Create Digital Excellence With Us',
+                    subtitle: 'We blend creativity with cutting-edge technology to deliver outstanding media and programming solutions that elevate your brand to the next level.',
+                    prefix: 'We are',
+                    words: ['Media Experts', 'Creative Developers', 'Professional Editors', 'Photography Masters', 'Digital Innovators'],
+                    cta1: 'Explore Our Work',
+                    cta2: "Let's Talk"
+                },
+                services: {
+                    title: 'Our Services',
+                    subtitle: 'Comprehensive solutions tailored to your business needs, delivered with precision and creativity.',
+                    cards: [
+                        { title: 'Production', desc: 'High-quality video production, from concept to final cut, using state-of-the-art equipment and techniques.' },
+                        { title: 'Development', desc: 'Custom web and mobile applications built with modern technologies and best practices for optimal performance.' },
+                        { title: 'Post Production', desc: 'Professional editing, color grading, and visual effects that bring your vision to life with cinematic quality.' },
+                        { title: 'Photography', desc: 'Commercial and creative photography that captures your brand\'s essence and tells your unique story.' }
+                    ]
+                },
+                portfolio: {
+                    title: 'Our Portfolio',
+                    subtitle: 'Some of our favorite projects that showcase our expertise and creativity.',
+                    filters: ['All', 'Production', 'Development', 'Post Production']
+                },
+                stats: {
+                    items: ['Projects Completed', 'Happy Clients', 'Years Experience', 'Expert Team']
+                },
+                testimonials: {
+                    title: 'Client Testimonials',
+                    subtitle: 'What our clients say about working with us.'
+                },
+                contact: {
+                    title: 'Get In Touch',
+                    subtitle: "Let's discuss your next project and create something amazing together.",
+                    info: "Let's Connect",
+                    form: ['Your Name', 'Email Address', 'Subject', 'Your Message', 'Send Message']
+                },
+                footer: {
+                    about: 'Creating digital excellence through innovative media solutions and cutting-edge technology. We turn ideas into impactful digital experiences.',
+                    quick: 'Quick Links',
+                    services: 'Services',
+                    contact: 'Contact Info',
+                    rights: '© 2026 ZMW Business. All rights reserved. | Privacy Policy | Terms of Service'
+                }
+            },
+            ar: {
+                nav: ['الرئيسية', 'الخدمات', 'أعمالنا', 'آراء العملاء', 'اتصل بنا'],
+                logo: { prefix: 'ZMW', suffix: 'للأعمال' },
+                hero: {
+                    title: 'نصنع التميز الرقمي معاً',
+                    subtitle: 'نمزج الإبداع بالتكنولوجيا المتطورة لنقدم حلول إعلامية وبرمجية استثنائية ترتقي بعلامتك التجارية إلى المستوى التالي.',
+                    prefix: 'نحن',
+                    words: ['خبراء الإعلام', 'مطورون مبدعون', 'محترفو المونتاج', 'أساتذة التصوير', 'مبتكرو الرقمنة'],
+                    cta1: 'استكشف أعمالنا',
+                    cta2: 'تواصل معنا'
+                },
+                services: {
+                    title: 'خدماتنا',
+                    subtitle: 'حلول شاملة مصممة خصيصاً لاحتياجات عملك، نقدمها بدقة وإبداع.',
+                    cards: [
+                        { title: 'الإنتاج', desc: 'إنتاج فيديو عالي الجودة، من الفكرة إلى المونتاج النهائي، باستخدام أحدث المعدات والتقنيات.' },
+                        { title: 'التطوير', desc: 'تطبيقات ويب وموبايل مخصصة بأحدث التقنيات وأفضل الممارسات لأداء مثالي.' },
+                        { title: 'المونتاج', desc: 'مونتاج احترافي وتصحيح ألوان ومؤثرات بصرية تحقق رؤيتك بجودة سينمائية.' },
+                        { title: 'التصوير', desc: 'تصوير تجاري وإبداعي يلتقط جوهر علامتك التجارية ويروي قصتك الفريدة.' }
+                    ]
+                },
+                portfolio: {
+                    title: 'أعمالنا',
+                    subtitle: 'بعض من مشاريعنا المفضلة التي تعرض خبرتنا وإبداعنا.',
+                    filters: ['الكل', 'الإنتاج', 'التطوير', 'المونتاج']
+                },
+                stats: {
+                    items: ['مشروع مكتمل', 'عميل سعيد', 'سنوات خبرة', 'فريق خبير']
+                },
+                testimonials: {
+                    title: 'آراء العملاء',
+                    subtitle: 'ماذا يقول عملاؤنا عن العمل معنا.'
+                },
+                contact: {
+                    title: 'تواصل معنا',
+                    subtitle: 'دعنا نناقش مشروعك القادم ونبدع شيئاً رائعاً معاً.',
+                    info: 'لنتواصل',
+                    form: ['الاسم', 'البريد الإلكتروني', 'الموضوع', 'رسالتك', 'إرسال الرسالة']
+                },
+                footer: {
+                    about: 'نصنع التميز الرقمي من خلال حلول إعلامية مبتكرة وتكنولوجيا متطورة. نحول الأفكار إلى تجارب رقمية مؤثرة.',
+                    quick: 'روابط سريعة',
+                    services: 'الخدمات',
+                    contact: 'معلومات الاتصال',
+                    rights: '© 2026 ZMW Business. جميع الحقوق محفوظة | سياسة الخصوصية | شروط الخدمة'
+                }
+            }
+        };
+
+        // ===== CUSTOM CURSOR =====
+        const cursor = document.getElementById('customCursor');
+        
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        document.addEventListener('mousedown', () => {
+            cursor.classList.add('click');
+        });
+
+        document.addEventListener('mouseup', () => {
+            cursor.classList.remove('click');
+        });
+
+        document.querySelectorAll('a, button, .service-card, .portfolio-item, .social-icon, .filter-btn').forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                cursor.classList.add('hover');
+            });
+            element.addEventListener('mouseleave', () => {
+                cursor.classList.remove('hover');
+            });
+        });
+
+        // ===== FLOATING PARTICLES =====
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                const size = Math.random() * 20 + 5;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const duration = Math.random() * 20 + 10;
+                
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = posX + '%';
+                particle.style.top = posY + '%';
+                particle.style.setProperty('--duration', duration + 's');
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        createParticles();
+
+        // ===== TYPEWRITER EFFECT =====
+        let typewriterInterval;
+        let currentTypewriterLang = 'en';
+
+        function startTypewriter(lang) {
+            if (typewriterInterval) clearInterval(typewriterInterval);
+            
+            const words = translations[lang].hero.words;
+            let wordIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+            const typewriterElement = document.getElementById('typewriter-text');
+
+            function typeEffect() {
+                const currentWord = words[wordIndex];
+                
+                if (isDeleting) {
+                    typewriterElement.textContent = currentWord.substring(0, charIndex - 1);
+                    charIndex--;
+                } else {
+                    typewriterElement.textContent = currentWord.substring(0, charIndex + 1);
+                    charIndex++;
+                }
+
+                if (!isDeleting && charIndex === currentWord.length) {
+                    isDeleting = true;
+                    setTimeout(typeEffect, 2000);
+                } else if (isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    wordIndex = (wordIndex + 1) % words.length;
+                    setTimeout(typeEffect, 500);
+                } else {
+                    setTimeout(typeEffect, isDeleting ? 50 : 100);
+                }
+            }
+
+            typeEffect();
+        }
+
+        // ===== ANIMATED NUMBERS =====
+        function animateNumbers() {
+            const stats = document.querySelectorAll('.stat-number');
+            stats.forEach(stat => {
+                const target = parseInt(stat.getAttribute('data-target'));
+                let current = 0;
+                const increment = target / 50;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        stat.innerText = target;
+                        clearInterval(timer);
+                    } else {
+                        stat.innerText = Math.ceil(current);
+                    }
+                }, 30);
+            });
+        }
+
+        // ===== SCROLL REVEAL =====
+        const statsSection = document.querySelector('.stats');
+        let animated = false;
+
+        function checkScroll() {
+            const elements = document.querySelectorAll('.fade-up');
+            const screenPosition = window.innerHeight - 100;
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                if (elementPosition < screenPosition) {
+                    element.classList.add('active');
+                }
+            });
+
+            // Trigger stats animation
+            if (statsSection) {
+                const statsPosition = statsSection.getBoundingClientRect().top;
+                if (statsPosition < screenPosition && !animated) {
+                    animateNumbers();
+                    animated = true;
+                }
+            }
+        }
+
+        window.addEventListener('scroll', checkScroll);
+        window.addEventListener('load', checkScroll);
+
+        // ===== PORTFOLIO FILTER =====
+        function filterPortfolio(category) {
+            const items = document.querySelectorAll('.portfolio-item');
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            items.forEach(item => {
+                if (category === 'all' || item.getAttribute('data-category') === category) {
+                    item.style.display = 'block';
+                    setTimeout(() => {
+                        item.style.opacity = '1';
+                        item.style.transform = 'scale(1)';
+                    }, 50);
+                } else {
+                    item.style.opacity = '0';
+                    item.style.transform = 'scale(0.8)';
+                    setTimeout(() => {
+                        item.style.display = 'none';
+                    }, 300);
+                }
+            });
+        }
+
+        // ===== LANGUAGE CHANGE =====
+        function changeLanguage(lang) {
+            const t = translations[lang];
+            
+            // Set HTML attributes
+            document.documentElement.setAttribute('lang', lang);
+            document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+            document.title = lang === 'ar' ? 'ZMW Business - للإنتاج والبرمجة' : 'ZMW Business - Media & Programming';
+            
+            // Update navbar
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach((link, index) => {
+                link.textContent = t.nav[index];
+            });
+            
+            document.querySelector('.logo').innerHTML = `${t.logo.prefix} <span>${t.logo.suffix}</span> <span class="logo-badge">EST. 2020</span>`;
+            
+            // Update hero
+            document.querySelector('.hero-title').innerHTML = lang === 'ar' ? 
+                'نصنع <span class="highlight">التميز</span><br>الرقمي معاً' : 
+                'Create <span class="highlight">Digital</span><br>Excellence With Us';
+            document.querySelector('.hero-subtitle').textContent = t.hero.subtitle;
+            document.querySelector('.typewriter-prefix').textContent = t.hero.prefix;
+            document.querySelectorAll('.cta-button')[0].textContent = t.hero.cta1;
+            document.querySelectorAll('.cta-button')[1].textContent = t.hero.cta2;
+            
+            // Restart typewriter with new words
+            startTypewriter(lang);
+            
+            // Update services
+            document.querySelector('#services .section-title').textContent = t.services.title;
+            document.querySelector('#services .section-subtitle').textContent = t.services.subtitle;
+            
+            const serviceCards = document.querySelectorAll('.service-card');
+            serviceCards.forEach((card, index) => {
+                card.querySelector('h3').textContent = t.services.cards[index].title;
+                card.querySelector('p').textContent = t.services.cards[index].desc;
+            });
+            
+            // Update portfolio
+            document.querySelector('#portfolio .section-title').textContent = t.portfolio.title;
+            document.querySelector('#portfolio .section-subtitle').textContent = t.portfolio.subtitle;
+            
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            filterBtns.forEach((btn, index) => {
+                btn.textContent = t.portfolio.filters[index];
+            });
+            
+            // Update stats
+            const statLabels = document.querySelectorAll('.stat-label');
+            statLabels.forEach((label, index) => {
+                label.textContent = t.stats.items[index];
+            });
+            
+            // Update testimonials
+            document.querySelector('#testimonials .section-title').textContent = t.testimonials.title;
+            document.querySelector('#testimonials .section-subtitle').textContent = t.testimonials.subtitle;
+            
+            // Update contact
+            document.querySelector('#contact .section-title').textContent = t.contact.title;
+            document.querySelector('#contact .section-subtitle').textContent = t.contact.subtitle;
+            document.querySelector('.contact-info h3').textContent = t.contact.info;
+            
+            const formInputs = document.querySelectorAll('.form-group input, .form-group textarea');
+            formInputs[0].placeholder = t.contact.form[0];
+            formInputs[1].placeholder = t.contact.form[1];
+            formInputs[2].placeholder = t.contact.form[2];
+            formInputs[3].placeholder = t.contact.form[3];
+            document.querySelector('.submit-btn').textContent = t.contact.form[4];
+            
+            // Update footer
+            const footerHeadings = document.querySelectorAll('.footer h3');
+            footerHeadings[0].textContent = t.logo.prefix + ' ' + t.logo.suffix;
+            footerHeadings[1].textContent = t.footer.quick;
+            footerHeadings[2].textContent = t.footer.services;
+            footerHeadings[3].textContent = t.footer.contact;
+            
+            document.querySelector('.footer p').textContent = t.footer.about;
+            
+            const footerLinks = document.querySelectorAll('.footer-links');
+            const quickLinks = footerLinks[0].querySelectorAll('a');
+            t.nav.forEach((item, index) => {
+                if (quickLinks[index]) quickLinks[index].textContent = item;
+            });
+            
+            const serviceLinks = footerLinks[1].querySelectorAll('a');
+            t.services.cards.forEach((item, index) => {
+                if (serviceLinks[index]) serviceLinks[index].textContent = item.title;
+            });
+            
+            document.querySelector('.copyright p').textContent = t.footer.rights;
+            
+            // Update language buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if ((lang === 'en' && btn.textContent === 'EN') || 
+                    (lang === 'ar' && btn.textContent === 'عربي')) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        // ===== INITIALIZE =====
+        window.addEventListener('load', () => {
+            // Start with English
+            startTypewriter('en');
+            
+            // Add active class to first language button
+            document.querySelectorAll('.lang-btn')[0].classList.add('active');
+            
+            // Trigger scroll check
+            checkScroll();
+        });
+
+        // ===== FORM SUBMISSION =====
+        document.getElementById('contactForm')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const lang = document.documentElement.lang;
+            alert(lang === 'ar' ? 'شكراً لرسالتك! سنتواصل معك قريباً.' : 'Thank you for your message! We\'ll get back to you soon.');
+            e.target.reset();
+        });
+
+        // ===== SMOOTH SCROLL =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // ===== NAVBAR SCROLL EFFECT =====
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // ===== NEWSLETTER SUBSCRIPTION =====
+        document.querySelector('.newsletter-btn')?.addEventListener('click', () => {
+            const input = document.querySelector('.newsletter-input');
+            if (input.value) {
+                const lang = document.documentElement.lang;
+                alert(lang === 'ar' ? 'تم الاشتراك في النشرة البريدية!' : 'Subscribed to newsletter!');
+                input.value = '';
+            }
+        });
+
+        // ===== PORTFOLIO ITEM CLICK =====
+        document.querySelectorAll('.portfolio-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const lang = document.documentElement.lang;
+                alert(lang === 'ar' ? 'سيتم فتح تفاصيل المشروع قريباً' : 'Project details will be available soon');
+            });
+        });
+    </script>
+</body>
+</html>
